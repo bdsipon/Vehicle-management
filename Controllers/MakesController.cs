@@ -1,24 +1,29 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Vehicle_management.Controllers.Resources;
 using Vehicle_management.models;
 using Vehicle_management.Persistence;
 
 namespace Vehicle_management.Controllers
 {
-    public class MakesController:Controller
+    public class MakesController : Controller
     {
         private readonly VehicleDbContext context;
-        public MakesController(VehicleDbContext context)
+        private readonly IMapper mapper;
+        public MakesController(VehicleDbContext context, IMapper mapper)
         {
-            this.context= context;
+            this.mapper = mapper;
+            this.context = context;
         }
         [HttpGet("/api/makes")]
-        public async Task <IEnumerable<Make>> GetMakes()
+        public async Task<IEnumerable<MakeResource>> GetMakes()
         {
-            return await context.Makes.Include(m=>m.models).ToListAsync();
+           var makes= await context.Makes.Include(m => m.models).ToListAsync();
+           return mapper.Map<List<Make>,List<MakeResource>>(makes);
         }
-        
+
     }
 }
