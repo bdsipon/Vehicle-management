@@ -10,6 +10,7 @@ namespace Vehicle_management.Persistence
            
         }
          public DbSet<Make> Makes { get; set; }
+         public DbSet<Feature> Features { get; set; }
         
     }
 }
