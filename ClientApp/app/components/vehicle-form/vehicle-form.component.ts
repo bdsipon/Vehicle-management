@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleFormComponent implements OnInit {
   makes:any;
+  vehicle={};
 
   constructor(private makeService:MakeService) { }
 
@@ -19,6 +20,10 @@ export class VehicleFormComponent implements OnInit {
     }
   );
 
+  }
+  onMakeChange(){
+    console.log("VEHICLE",this.vehicle);
+    
   }
 
 }
