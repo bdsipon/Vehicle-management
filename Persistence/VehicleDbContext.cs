@@ -5,6 +5,7 @@ namespace Vehicle_management.Persistence
 {
     public class VehicleDbContext:DbContext
     {
+        public DbSet<Vehicle> Vehicles{get;set;}
          public DbSet<Make> Makes { get; set; }
          public DbSet<Feature> Features { get; set; }
         public VehicleDbContext(DbContextOptions<VehicleDbContext> options):base(options)
