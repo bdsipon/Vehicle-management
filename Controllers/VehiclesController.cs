@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,12 @@ namespace Vehicle_management.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
         {
+            if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+     
             var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+            vehicle.LastUpdate=DateTime.Now;
+
             context.Vehicles.Add(vehicle);
             await context.SaveChangesAsync();
 var result=mapper.Map<Vehicle,VehicleResource>(vehicle);
